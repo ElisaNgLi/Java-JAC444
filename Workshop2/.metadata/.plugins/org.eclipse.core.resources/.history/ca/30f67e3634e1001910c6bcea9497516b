@@ -1,0 +1,186 @@
+package shapes;
+
+import java.io.BufferedReader;
+import java.io.FileReader;
+import java.io.IOException;
+
+public class Main {
+
+//	public static void main(String []args) {
+//		String fileName = "shapes.txt";
+//		
+//		System.out.println("------->JAC 444 Assignment 1<-------");
+//		System.out.println("------->Task 1 ... <-------");
+//		
+//		Shapes shapeArray[] = new Shapes[32];
+//		int count = 0;
+//		String s;
+//		
+//		try (BufferedReader br = new BufferedReader(new FileReader(fileName))) {
+//			while ((s = br.readLine()) != null) {
+//			String[] tokens = s.split(",");
+//			
+//				for(int i = 0; i < tokens.length; i++){
+//					switch(tokens[i]) {
+//					case "Circle":
+//						if(tokens.length == 2 && Double.parseDouble(tokens[1]) > 0) {
+//							shapeArray[count] = new Circle(Double.parseDouble(tokens[1]));
+//							count++;
+//						}
+//						else {
+//							System.out.println("Invalid radius!");
+//						}
+//						break;
+//						
+//					case "Parallelogram":
+//						if(tokens.length == 3 && Double.parseDouble(tokens[1]) > 0 &&  Double.parseDouble(tokens[2]) > 0) {
+//							shapeArray[count] = new Parallelogram(Double.parseDouble(tokens[1]), Double.parseDouble(tokens[2]));
+//							count++;
+//						}
+//						else {
+//							System.out.println("Invalid side!");
+//						}
+//						break;
+//						
+//					case "Rectangle":
+//						if(tokens.length == 3 && Double.parseDouble(tokens[1]) > 0 &&  Double.parseDouble(tokens[2]) > 0) {
+//							shapeArray[count] = new Rectangle(Double.parseDouble(tokens[1]), Double.parseDouble(tokens[2]));
+//							count++;
+//						}
+//						else {
+//							System.out.println("Invalid side!");
+//						}
+//						break;
+//						
+//					case "Square":
+//						if(tokens.length == 2 && Double.parseDouble(tokens[1]) > 0) {
+//							shapeArray[count] = new Square(Double.parseDouble(tokens[1]));
+//							count++;
+//						}
+//						else {
+//							System.out.println("Invalid side!");
+//						}
+//						break;
+//						
+//					case "Triangle":
+//						if(tokens.length == 4 && Double.parseDouble(tokens[1]) > 0 &&  Double.parseDouble(tokens[2]) > 0 &&  Double.parseDouble(tokens[3]) > 0
+//						&& (Double.parseDouble(tokens[1]) + Double.parseDouble(tokens[2])) > Double.parseDouble(tokens[3])
+//						&& (Double.parseDouble(tokens[1]) + Double.parseDouble(tokens[3])) > Double.parseDouble(tokens[2])
+//						&& (Double.parseDouble(tokens[2]) + Double.parseDouble(tokens[3])) > Double.parseDouble(tokens[1])
+//								) {
+//							shapeArray[count] = new Triangle(Double.parseDouble(tokens[1]), Double.parseDouble(tokens[2]), Double.parseDouble(tokens[3]));
+//							count++;
+//						}
+//						else {
+//							System.out.println("Invalid side!(s)");
+//						}
+//						break;
+//
+//					default:
+//					break;
+//					}
+//				}
+//			}
+//		} catch (IOException e) {
+//			 System.out.println(e.getMessage());
+//			}
+//		
+//		System.out.println("\n" + shapeArray.length + " shapes were created:");
+//		
+//		for(int i = 0; i < shapeArray.length; i++) {
+//			System.out.println(shapeArray[i].toString() + "\n");
+//		}	
+//	}
+	public static void main(String[] args) {
+        String task1txt = "shapes.txt";
+                
+
+        String ShapeType [] = new String[]{"Circle", "Square", "Rectangle", "Parallelogram", "Triangle"};
+        int ShapeCount = 0,
+            index = 0;
+
+        /**  Count number of object to initialize how many array needs */
+        try (BufferedReader br = new BufferedReader(new FileReader(task1txt))) {
+            String s;
+            while ((s = br.readLine()) != null) {
+                String[] tokens = s.split(",");
+                for (int i = 0; i < ShapeType.length; i++) {
+                    if (tokens[0].equals(ShapeType[i]))
+                        ShapeCount++;
+                }
+            }
+        }
+        catch (Exception e) {
+            System.out.println(e);
+        }
+
+        Shapes ShapeArr [] = new Shapes[ShapeCount];
+
+        /**********************  For Task 1  **********************/
+        System.out.println("------->JAC 444 Assignment 1<-------");
+        System.out.println("------->Task 1 ... <-------");
+
+        try (BufferedReader br = new BufferedReader(new FileReader(task1txt))) {
+            String s;
+
+            while ((s = br.readLine()) != null) {
+                String[] tokens = s.split(",");
+                String shapeType = tokens[0];
+
+                /** Print whatever is invalid value */
+
+                if (shapeType.equals(ShapeType[0])) { // Circle
+                    if (tokens.length != 2 || !isValid(tokens[1]))
+                        System.out.println("Invalid radius!");
+                    else
+                        ShapeArr[index++] = new Circle(Double.valueOf(tokens[1]));
+                }
+                else if (shapeType.equals(ShapeType[1])) { //Square
+                    if (tokens.length != 2 || !isValid(tokens[1]))
+                        System.out.println("Invalid side! ");
+                    else
+                        ShapeArr[index++] = new Square(Double.valueOf(tokens[1]));
+                }
+                else if (shapeType.equals(ShapeType[2])) { // Rectangle
+                    if (tokens.length != 3 || !isValid(tokens[1], tokens[2]))
+                        System.out.println("Invalid side(s)! ");
+                    else ShapeArr[index++] = new Rectangle(Double.valueOf(tokens[1]),
+                            Double.valueOf(tokens[2]));
+                }
+                else if (shapeType.equals(ShapeType[3])) { // Parallelogram
+                    if (tokens.length != 3 || !isValid(tokens[1], tokens[2]))
+                        System.out.println("Invalid side(s)! ");
+                    else ShapeArr[index++] = new Parallelogram(Double.valueOf(tokens[1]),
+                            Double.valueOf(tokens[2]));
+                }
+                else if (shapeType.equals(ShapeType[4])) { // Triangle
+                    if (tokens.length != 4 || !isValid(tokens[1], tokens[2], tokens[3]))
+                        System.out.println("Invalid side(s)! ");
+                    else ShapeArr[index++] = new Triangle(Double.valueOf(tokens[1]),
+                            Double.valueOf(tokens[2]), Double.valueOf(tokens[3]));
+                }
+                else ;
+            }
+            System.out.printf("\n%d shapes were created:\n", index);
+
+            for(int i = 0; i < index; i ++)
+                System.out.println(ShapeArr[i] + "\n");
+
+        }
+        catch (Exception e) {
+            System.out.println(e.getMessage());
+        }
+        }
+        
+//        public static boolean isValid(String value) {
+//            return Double.valueOf(value) > 0;
+//        }
+//        public static boolean isValid(String value1, String value2) {
+//            return Double.valueOf(value1) > 0 && Double.valueOf(value2) > 0;
+//        }
+//        public static boolean isValid(String value1, String value2, String value3) {
+//            return Double.valueOf(value1) > 0 && Double.valueOf(value2) > 0
+//                    && Double.valueOf(value3) > 0;
+//        }
+	
+}

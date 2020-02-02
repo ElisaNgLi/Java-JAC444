@@ -1,0 +1,34 @@
+package shapes;
+
+public class Circle implements Shapes{
+	private double radio;
+
+	//Constructor
+	public Circle(double radio) {
+		setRadio(radio);
+	}
+	
+	//Setter
+	public void setRadio(double radio) {     
+		this.radio = radio;
+	}
+	
+	//Getter
+	public double getRadio(){	
+		return radio;
+	}
+	
+	@Override
+	public double perimeter(){
+		return 2 * getRadio() * Math.PI;
+	}
+	
+	Area circleArea = () -> Math.PI * getRadio() * getRadio();
+	
+	@Override
+	public String toString() {
+		return new String("Circle {r=" + getRadio() + "}" + ", perimeter = " + perimeter() +
+						  "\n Circle Area: " + circleArea.getArea());
+	}
+
+}

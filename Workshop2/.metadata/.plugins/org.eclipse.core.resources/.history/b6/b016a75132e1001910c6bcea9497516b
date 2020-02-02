@@ -1,0 +1,52 @@
+package shapes;
+
+public class Triangle implements Shapes{
+	private double sideA;
+	private double sideB;
+	private double base;
+
+	//Constructor
+	public Triangle(double sideA, double sideB, double base) {
+		setSideA(sideA);
+		setSideB(sideB);
+		setBase(base);
+	}
+
+	public double getSideA() {
+		return sideA;
+	}
+
+	public void setSideA(double sideA) { // setters
+		this.sideA = sideA;
+	}
+	
+	public double getSideB() {  // getters
+		return sideB;
+	}
+
+	public void setSideB(double sideB) {  // setters
+		this.sideB = sideB;
+	}
+	
+	public double getBase() {  // setters
+		return base;
+	}
+
+	public void setBase(double base) {  // getters
+		this.base = base;
+	}
+	
+	@Override
+	public String toString() {
+		return new String("Triangle {s1=" + getSideA() + ", " +
+				                   "s2=" + getSideB() + ", " +
+				                   "s3=" + getBase() + "}" +
+								   ", perimeter = " + perimeter());
+	} 
+	
+	@Override
+	public double perimeter() {
+		return (getBase() +  getSideA() + getSideB());
+	}
+
+}

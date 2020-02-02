@@ -1,0 +1,13 @@
+package shapes;
+
+public class Rectangle extends Parallelogram{
+	public Rectangle(double length, double width) {
+		super (length, width);
+	}
+	
+	@Override
+	public String toString() {
+		return new String("Rectangle {w=" + getWidth() + ", h=" + getLength() + "} perimeter = " + perimeter());
+	}
+
+}

@@ -1,0 +1,18 @@
+package shapes;
+
+//Subclass for rectangle
+public class Square extends Parallelogram{
+
+	//Constructor
+	public Square(double side) {
+		//Super class constructor
+		super(side, side);
+
+	}
+
+	@Override
+	public String toString() {    // from java library I think...
+		return new String("Square {s=" + getLength() + "}" + ", perimeter = " + perimeter());
+	} 
+
+}

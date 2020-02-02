@@ -1,0 +1,97 @@
+package shapes;
+
+import java.io.BufferedReader;
+import java.io.FileReader;
+import java.io.IOException;
+
+public class Main {
+
+	static Shapes[] shapes;
+	static {
+		shapes = new Shapes[32];
+	}
+	
+	public static void readFile(String fileName) {
+		try (BufferedReader br = new BufferedReader(new FileReader(fileName))) {
+			String s;
+			int count = 0;  // to count the good shapes
+			
+			while ((s = br.readLine()) != null) {
+				String[] tokens = s.split(",");
+				
+				for(int i = 0; i < tokens.length; i++) {
+					switch(tokens[i]) {
+					case "Circle":
+						if (tokens.length == 2 && Double.parseDouble(tokens[1]) > 0) {
+							shapes[count] = new Circle(Double.parseDouble(tokens[i + 1]));
+							count++;
+						} else {
+							System.out.println("Invalid radius!");
+						}
+						break;
+					case "Parallelogram":
+						if (tokens.length == 3 && Double.parseDouble(tokens[1]) > 0 
+											   && Double.parseDouble(tokens[2]) > 0) {
+							shapes[count] = new Parallelogram(Double.parseDouble(tokens[i + 1]), 
+									 						  Double.parseDouble(tokens[i + 2]));
+							count++;
+						}else {
+							System.out.println("Invalid sides!");
+						}
+						break;
+					case "Square": 
+						if (tokens.length == 2 && Double.parseDouble(tokens[1]) > 0) {
+							shapes[count] = new Square(Double.parseDouble(tokens[i + 1]));
+							count++;
+						}else {
+							System.out.println("Invalid side!");
+						}
+						break;
+					case "Triangle":
+						if (tokens.length == 4 && (Double.parseDouble(tokens[1]) + Double.parseDouble(tokens[2])) > Double.parseDouble(tokens[3])
+								&& (Double.parseDouble(tokens[2]) + Double.parseDouble(tokens[3])) > Double.parseDouble(tokens[1])
+								&& (Double.parseDouble(tokens[1]) + Double.parseDouble(tokens[3])) > Double.parseDouble(tokens[2])
+											   && Double.parseDouble(tokens[1]) > 0
+											   && Double.parseDouble(tokens[2]) > 0
+											   && Double.parseDouble(tokens[3]) > 0) {
+							shapes[count] = new Triangle(Double.parseDouble(tokens[i + 1]), 
+														 Double.parseDouble(tokens[i + 2]), 
+														 Double.parseDouble(tokens[i + 3]));
+							count++;
+						} else {
+							System.out.println("Invalid sides!");
+						}
+						break;
+					case "Rectangle":
+						if (tokens.length == 3 && Double.parseDouble(tokens[1]) > 0 
+						   					   && Double.parseDouble(tokens[2]) > 0) {
+							shapes[count] = new Rectangle(Double.parseDouble(tokens[i + 1]), Double.parseDouble(tokens[i + 2]));
+							count++;
+						} else {
+							System.out.println("Invalid sides!");
+						}
+						break;
+					default: 
+						break;
+					}
+				}
+			}
+			
+			for (Shapes shape : shapes) {
+				System.out.println(shape.toString());
+			}
+			
+			System.out.println(count);
+		
+			
+			
+		} catch (IOException e) {
+			System.out.println(e.getMessage());
+		}
+	}
+	
+	public static void main(String[] args) {
+		readFile("shapes.txt");
+	}
+
+}
