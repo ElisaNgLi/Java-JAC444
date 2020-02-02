@@ -1,0 +1,79 @@
+package w01;
+
+public class Stack {
+
+//	private char arr[];
+//	private int top;
+//	
+//	public Stack(int size) {  
+//		  arr= new char[size];
+//		  top= -1;
+//	}
+//
+//	public boolean isEmpty(){
+//		return top == -1;	
+//	}
+//	
+//	public boolean isFull(){
+//		return top == arr.length - 1;
+//	}
+//		
+//	public void push(char i) {
+//	    if (isFull()) {
+//	    	throw new IllegalStateException("Stack is full");
+//	      }
+//	      arr[++top] = i;	    
+//	}
+//	
+//	public char pop() {
+//	    if (isEmpty()) {
+//	      System.out.println("Stack is empty");
+//             throw new IllegalStateException("Stack is empty");
+//	    }	    
+//	    return arr[top--];
+//	}
+	
+	private int top;
+    private char[] arr;
+
+    
+	public boolean isFull(){
+	      return top == arr.length - 1;
+    }
+	
+	 // Stack is empty if "top" reached the end of string
+    public boolean isEmpty() {
+        return (top == -1);
+    }
+    
+    // pop() returns the element at the "top" of the stack
+    // and removes it
+    public char pop() {
+    	if (isEmpty()) {
+  	      System.out.println("Stack is empty");
+               throw new IllegalStateException("Stack is empty");
+  	    }	else{ 
+        // Decrement top to simulate removal of character
+        return arr[top--];
+  	    }
+    }
+
+    // Push(element) will push the element onto the stack
+    // and return that element (Pushes from right to left <<)
+    public void push(String str) {
+    	if (isFull()) {
+	    	throw new IllegalStateException("Stack is full");
+	      }else{
+        // Take out whitespace before storing in array
+        str = str.replaceAll("\\s", "");
+
+        this.arr = new char[str.length()];
+        this.arr = str.toCharArray();
+
+        top = str.length() - 1;
+	      }
+    }
+
+ 
+
+}

@@ -1,0 +1,36 @@
+package w01;
+
+public class Palindrome {
+
+	public static void main(String[] args) {
+        // Check if there are any command line arguments
+        if (args.length > 0) {
+            for (String str : args) {
+                // Create new object every time to reuse reference. Unreferenced objects will be collected by JVM
+                Stack stack = new Stack();
+                String reverseInput = "";
+                
+                for(int i=0; i< str.length(); i++){
+                	stack.push(str);
+                }
+                
+                // Copy string in reverse order
+                while (!stack.isEmpty()) {
+                	reverseInput += stack.pop();
+                }
+
+                // Compare reversed string to string
+                // ignoring whitespaces and cases
+                if(str.replaceAll("\\s", "").equalsIgnoreCase(reverseInput.toString())){
+                    System.out.println(str + " is a palindrome!");
+                }
+                else {
+                    System.out.println(str + " is not a palindrome!");
+                }
+
+            }
+        }else{
+        	System.out.print("Empty! Please input something");
+        }
+	}
+}

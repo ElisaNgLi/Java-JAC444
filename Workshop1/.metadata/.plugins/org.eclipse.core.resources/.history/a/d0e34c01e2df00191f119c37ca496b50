@@ -1,0 +1,21 @@
+package w01;
+
+public class Stack {
+	private int top;
+    private char[] arr;
+
+    public boolean isEmpty() {
+        return (top == -1);
+    }
+   
+    public char pop() {
+        return arr[top--];
+    }
+
+    public void push(String str) {
+        str = str.replaceAll("\\s", "");
+        this.arr = new char[str.length()];
+        this.arr = str.toCharArray();
+        top = str.length() - 1;
+    }
+}

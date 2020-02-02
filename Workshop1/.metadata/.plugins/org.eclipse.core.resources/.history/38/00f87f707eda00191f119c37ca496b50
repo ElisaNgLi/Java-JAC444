@@ -1,0 +1,67 @@
+package w01;
+
+import java.util.Scanner;
+
+public class Palindrome {
+
+//	public static String reverseInput(String input) {
+//		Stack stack = new Stack(100);
+//		
+//		String tempStr = "";
+//		
+//		for(int i=0; i<input.length();i++) {
+//			stack.push(input.charAt(i));	
+//		}
+//		
+//		while (!stack.isEmpty()){
+//			tempStr = tempStr + stack.pop();
+//		}
+//		
+//		return tempStr;		
+//	}
+//	
+//	public static void checkPalindrome(String str){
+//		String reversedInput = reverseInput(str);
+//				
+//	  if(reversedInput.equals(str)) 
+//		  System.out.println( str + " is a palindrome.");	  
+//	  
+//	  else
+//		  System.out.println( str + " is not a palindrome.");
+//	}
+//
+//	public static void main(String[] args) {
+//		 @SuppressWarnings("resource")
+//		Scanner scanner = new Scanner(System.in);
+//		 System.out.println("Please enter your string or number:");		 
+//		 String input = scanner.nextLine();		 
+//		 checkPalindrome(input);		
+//	}
+
+	public static void main(String[] args) {
+        // Check if there are any command line arguments
+        if (args.length > 0) {
+            for (String str : args) {
+                // Create new object every time to reuse reference. Unreferenced objects will be collected by JVM
+                Stack stkObj = new Stack();
+                StringBuilder strReversed = new StringBuilder();
+
+                stkObj.push(str);
+
+                // Copy string in reverse order
+                while (!stkObj.empty()) {
+                    strReversed.append(stkObj.pop());
+                }
+
+                // Compare reversed string to string
+                // ignoring whitespaces and cases
+                if(str.replaceAll("\\s", "").equalsIgnoreCase(strReversed.toString())){
+                    System.out.println(str + " is a palindrome!");
+                }
+                else {
+                    System.out.println(str + " is not a palindrome!");
+                }
+            }
+        }
+    }
+}
