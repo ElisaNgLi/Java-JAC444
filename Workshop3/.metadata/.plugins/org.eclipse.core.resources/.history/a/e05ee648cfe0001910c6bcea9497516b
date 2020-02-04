@@ -1,0 +1,21 @@
+package shapes;
+
+//Subclass for rectangle
+public class Square extends Rectangle{
+
+	//Constructor
+	public Square(double side) {
+		//Super class constructor
+		super(side, side);
+
+	}
+
+	Area squareArea = () -> getWidth() * getWidth();
+	
+	@Override
+	public String toString() {    // from java library I think...
+		return new String("Square {s=" + getWidth() + "}" + ", perimeter = " + perimeter() +
+						  "\n Square Area: " + squareArea.getArea());
+	} 
+
+}

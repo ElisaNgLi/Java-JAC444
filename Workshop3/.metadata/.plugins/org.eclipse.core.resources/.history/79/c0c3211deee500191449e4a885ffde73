@@ -1,0 +1,146 @@
+package shapes;
+
+import java.io.BufferedReader;
+import java.io.FileReader;
+import java.io.IOException;
+
+public class Main {
+
+	public static void main(String []args) {		
+		String fileName = "shapes.txt";
+		
+		System.out.println("------->JAC 444 Assignment 1<-------");
+		System.out.println("------->Task 1 ... <-------");
+		
+		Shapes shapeArray[] = new Shapes[35];
+		int count = 0;
+		
+		try (BufferedReader br = new BufferedReader(new FileReader(fileName))) {
+			Shapes newShape = null;
+			String s;
+			while ((s = br.readLine()) != null) {
+			String[] tokens = s.split(",");
+					switch(tokens[0]) {
+					case "Circle":
+						if(tokens.length == 2 ) {
+							newShape = new Circle(Double.parseDouble(tokens[1]));
+						}
+						break;
+					case "Parallelogram":
+						if(tokens.length == 3 ) {
+							newShape = new Parallelogram(Double.parseDouble(tokens[1]), Double.parseDouble(tokens[2]));
+						}
+						break;
+					case "Rectangle":
+						if(tokens.length == 3 ) {
+							newShape = new Rectangle(Double.parseDouble(tokens[1]), Double.parseDouble(tokens[2]));
+						}
+						break;
+					case "Square":
+						if(tokens.length == 2  ){
+							newShape = new Square(Double.parseDouble(tokens[1]));	
+						}
+						break;
+					case "Triangle":
+						if(tokens.length == 4 ) {
+							newShape = new Triangle(Double.parseDouble(tokens[1]), Double.parseDouble(tokens[2]), Double.parseDouble(tokens[3]));
+						}
+						break;
+					default:
+						newShape = null;
+		                }
+		                try {
+		                        if (newShape != null && newShape.validation()) {
+		                        	shapeArray[count] = newShape;
+		                            count++;
+		                        }
+		                } catch (IllegalArgumentException exception) {
+		                    System.out.println(exception.getMessage());
+		                }
+		            }
+					
+		} catch (IOException e) {
+			 System.out.println(e.getMessage());
+			}
+		System.out.println("\n" + count + " shapes were created:");
+		for(Shapes shape : shapeArray) {
+			System.out.println(shape + "\n");
+	
+		}
+		
+		
+		System.out.println("------->Task 2 ... <-------");
+		double triangleMin = 0;
+        double circleMax = 0;
+        boolean triangleFound = false;
+
+        for (int i = 0; !triangleFound && (i < shapeArray.length); i++) {
+            if (shapeArray[i].getClass().getSimpleName().equals("Triangle")) {
+                triangleMin = shapeArray[i].perimeter();
+                triangleFound = true;
+            }
+        }
+
+        // Determine lowest triangle perimeter and highest circle perimeter
+        for (int i = 0; i < shapeArray.length; i++) {
+            if (shapeArray[i].getClass().getSimpleName().equals("Triangle")) {
+                if (shapeArray[i].perimeter() < triangleMin) {
+                    triangleMin = shapeArray[i].perimeter();
+                }
+            }
+
+            if (shapeArray[i].getClass().getSimpleName().equals("Circle")) {
+                if (shapeArray[i].perimeter() > circleMax) {
+                    circleMax = shapeArray[i].perimeter();
+                }
+            }
+        }
+
+        //count = shapeArray.length;
+        for (int i = 0; i < count; i++) {
+            if (shapeArray[i].getClass().getSimpleName().equals("Triangle")) {
+                if(Math.abs(shapeArray[i].perimeter() - triangleMin) <= 0.000000001){
+                    for(int j = i; j < count - 1; j++) {
+                        shapeArray[j] = shapeArray[j + 1];
+                    }
+                    count--;
+                }
+            }
+
+            if (shapeArray[i].getClass().getSimpleName().equals("Circle")) {
+                if(Math.abs(shapeArray[i].perimeter() - circleMax) <= 0.00000001){
+                    for(int j = i; j < count - 1; j++) {
+                        shapeArray[j] = shapeArray[j + 1];
+                    }
+                    count--;
+                }
+            }
+        }
+
+        for(Shapes shape : shapeArray) {
+			System.out.println(shape + "\n");
+	
+		}
+
+        System.out.println(count);
+
+        System.out.println("\n------->Task 3 ... <-------");
+        double parallelogramPTotal = 0;
+        double trianglePTotal = 0;
+        for (int i = 0; i < count; i++) {
+            if (shapeArray[i].getClass().getSimpleName().equals("Parallelogram")) {
+                parallelogramPTotal += shapeArray[i].perimeter();
+            } else if (shapeArray[i].getClass().getSimpleName().equals("Triangle")) {
+                trianglePTotal += shapeArray[i].perimeter();
+            }
+
+        }
+
+        System.out.println("Total perimeter of Parallelogram is: " + parallelogramPTotal);
+        System.out.println("Total perimeter of Triangle is: " + trianglePTotal);
+		
+		
+	}	
+	
+	
+}
