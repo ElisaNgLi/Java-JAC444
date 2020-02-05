@@ -1,0 +1,32 @@
+package w04;
+
+import java.io.*;
+
+public class StudentDeserial {
+
+	public static void deserial() {
+		try {
+			FileInputStream fis = new FileInputStream("output.out");
+			ObjectInputStream ois = new ObjectInputStream(fis);
+
+			boolean read = true;
+			int stdCounter = 1;
+			
+			while(read) {
+				Student std = (Student)ois.readObject();
+				
+				if(std != null) {
+					System.out.println("Studnet " + stdCounter++);
+					System.out.println("Student Number: " + std.getStdID());
+                    System.out.println("Student Name: " + std.getName());
+                    System.out.println("Student Course(s): " + std.getCourses());
+                    System.out.println();
+				}
+			}
+			fis.close();
+		} catch (Throwable e) {
+			System.err.println(e);
+		}
+	}
+
+}
